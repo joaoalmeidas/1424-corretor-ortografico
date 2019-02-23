@@ -5,7 +5,7 @@ public class CorretorOrtografico {
 	public static void main(String[] args) {
 		
 		String palavra;
-		String[] palavrasCorretas = {"carro", "computador", "impressora", "monitor", "teclado", "impressora", "jogador", "futebol"};
+		String[] palavrasCorretas = {"default", "carro", "computador", "impressora", "monitor", "teclado", "impressora", "jogador", "futebol"};
 		
 		Scanner input = new Scanner(System.in);
 		
@@ -19,6 +19,7 @@ public class CorretorOrtografico {
 		}else {
 			
 			System.out.println("A palavra não foi escrita corretamente.");
+			System.out.printf("Você quis dizer %s?", procuraPalavraCorreta(palavra, palavrasCorretas));
 			
 		}
 
@@ -39,5 +40,33 @@ public class CorretorOrtografico {
 		return false;
 			
 	}
+	
+	public static String procuraPalavraCorreta(String palavra, String[] palavrasCorretas) {
+		
+		for(int i = 0; i < palavrasCorretas.length; i++) {
+			
+			for(int j = 0; j < palavrasCorretas[i].length() - 1; j++) {
+				
+				if(trocaPosicaoLetra(j, j+1, palavrasCorretas[i]).equals(palavra)){
+					
+					return palavrasCorretas[i];
+					
+				}
+				
+			}
+			
+		}
+		
+		return "";
+		
+	}
+	
 
+	public static String trocaPosicaoLetra(int i, int j, String palavra) {
+		
+		char primeira = palavra.charAt(i);
+		char segunda = palavra.charAt(j);
+		return palavra.substring(0, i) + segunda + primeira + palavra.substring(j+1, palavra.length());
+		
+	}
 }
